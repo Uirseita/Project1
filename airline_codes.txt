@@ -17,3 +17,6 @@ WN	Southwest Airlines Co.	77.70
 YV	Mesa Airlines Inc.	79.60
 YX	Republic Airline	78.06
 All Rows	All groups (including those not displayed) in the selected category	78.94
+
+
+@todo Check to see history of airlines over years (e.g. ExpressJet merger May 2018)
