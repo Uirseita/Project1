@@ -1,5 +1,6 @@
 OutFileName="X.csv"                       # Fix the output name
 i=0                                       # Reset a counter
+# @todo add echo
 for filename in ./*.csv; do 
  if [ "$filename"  != "$OutFileName" ] ;      # Avoid recursion 
  then 
