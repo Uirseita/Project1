@@ -2,7 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import re
-
+from .aa_tail_num_matching import update_convert_list
 
 def find_match(t_num, conv_df):
     for i in range(conv_df.shape[0]):
@@ -79,6 +79,28 @@ def scrape(t_num):
     else:
         pass
     return scrape_df
+
+
+def update_result_by_tail_num(result_df, old_tail_num, new_tail_num):
+    # update tail_num_convert dataframe first
+    tail_num_conv = pd.read_csv('./tail_num/tail_num_convert.csv')
+    tail_num_conv = update_convert_list(
+                                        tail_num_conv,
+                                        old_tail_num,
+                                        new_tail_num
+                                        )
+    tail_num_conv.to_csv('./tail_num/tail_num_convert.csv', index=False)
+    # delete the row of old_tail_num in result_df
+    result_df = result_df.drop(
+        result_df[result_df['tail_num'] == old_tail_num].index.values
+    ).reset_index(drop=True)
+    assert isinstance(find_match(old_tail_num, tail_num_conv), str)
+    # add new scraping result to result_df
+    res = scrape(new_tail_num)
+    res.loc[0, 'tail_num'] = old_tail_num
+    result_df = pd.concat([result_df, res], ignore_index=True)
+    result_df.to_csv('./tail_num/new_all_tail_num.csv', index=False)
+    return result_df
 
 
 if __name__ == "__main__":
