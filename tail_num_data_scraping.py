@@ -4,6 +4,7 @@ import requests
 import re
 from .aa_tail_num_matching import update_convert_list
 
+
 def find_match(t_num, conv_df):
     for i in range(conv_df.shape[0]):
         if conv_df.loc[i, 'old_tail_num'] == t_num:
@@ -103,7 +104,7 @@ def update_result_by_tail_num(result_df, old_tail_num, new_tail_num):
     return result_df
 
 
-if __name__ == "__main__":
+def first_time_scrape():
     tail_num_df = pd.read_csv('./tail_num/tail_num_list.csv')
     tail_num_convert = pd.read_csv('./tail_num/tail_num_convert.csv')
     tail_num_list = tail_num_df['tail_num'].tolist()
@@ -117,3 +118,8 @@ if __name__ == "__main__":
         else:
             df = pd.concat([df, scrape(tail_num)], ignore_index=True)
     df.to_csv('./tail_num/new_all_tail_num.csv', index=False)
+
+
+if __name__ == "__main__":
+    first_time_scrape()
+
