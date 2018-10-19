@@ -2,6 +2,21 @@ import numpy as np
 import pandas as pd
 
 
+def update_convert_list(tail_num_convert, old_tail_num, new_tail_num):
+    match = False
+    for i in range(tail_num_convert.shape[0]):
+        if tail_num_convert.loc[i, 'old_tail_num'] == old_tail_num:
+            match = 1
+            tail_num_convert.loc[i, 'new_tail_num'] = new_tail_num
+            break
+    if not match:
+        tail_num_convert.loc[tail_num_convert.shape[0],
+                             'old_tail_num'] = old_tail_num
+        tail_num_convert.loc[tail_num_convert.shape[0],
+                             'new_tail_num'] = new_tail_num
+    return tail_num_convert
+
+
 df = pd.read_csv('flight_data.csv')
 tail_num = pd.Series(df['TAIL_NUM'].unique()).dropna()
 tail_num_df = pd.DataFrame()
