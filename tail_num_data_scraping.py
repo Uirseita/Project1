@@ -86,7 +86,7 @@ def scrape(t_num):
                     max_j = i
         else:
             pass
-        if j != -1:
+        if j != -1 & max_cancel_year >= 2016:
             for key in ret_key_list:
                 s = soup.find('span',
                               id=ret_id_list[key] + str(max_j)).string.strip()
