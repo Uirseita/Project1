@@ -46,7 +46,9 @@ def update_result_by_input_info(result_df):
             else:
                 temp_result.loc[0, 'tail_num'] = tail_num
         else:
-            temp_result = result_df[result_df['tail_num'] == tail_num]
+            temp_result = result_df[
+                result_df['tail_num'] == tail_num
+            ].reset_index(drop=True)
         print('Current info for this tail number:\n')
         print(temp_result, '\n')
         # input other info
@@ -57,8 +59,8 @@ def update_result_by_input_info(result_df):
             if is_update == 'n':
                 continue
             else:
-                temp_result.loc[0, key] = input_function(regex_list[key],
-                                                         string2)
+                temp = input_function(regex_list[key],string2)
+                temp_result.loc[0, key] = temp
         if isinstance(temp_result.loc[0, 'year'], str):
             if re.match(r'^\d{4}$', temp_result.loc[0, 'year']):
                 temp_result.loc[0, 'year'] = int(temp_result.loc[0, 'year'])
@@ -68,7 +70,7 @@ def update_result_by_input_info(result_df):
             pass
         if isinstance(temp_result.loc[0, 'cert_year'], str):
             if re.match(r'^\d{4}$', temp_result.loc[0, 'cert_year']):
-                temp_result.loc[0, 'year'] = int(
+                temp_result.loc[0, 'cert_year'] = int(
                     temp_result.loc[0, 'cert_year'])
             else:
                 pass
