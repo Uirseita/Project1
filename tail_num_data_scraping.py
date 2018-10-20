@@ -58,17 +58,26 @@ def scrape(t_num):
             else:
                 pass
     else:
-        is_dereg = False
-        for i in range(3):
-            if soup.find('span', id=ret_id_list[ret_key_list[i]]):
-                is_dereg = True
+        j = 0
+        while True:
+            is_dereg = False
+            for i in range(3):
+                if soup.find('span', id=ret_id_list[ret_key_list[i]] + str(j)):
+                    is_dereg = True
+                else:
+                    pass
+            if not is_dereg:
+                j -= 1
+                break
             else:
+                j += 1
                 pass
-        if is_dereg:
+        if j != -1:
             for key in ret_key_list:
-                s = soup.find('span', id=ret_id_list[key]).string.strip()
+                s = soup.find('span',
+                              id=ret_id_list[key] + str(j)).string.strip()
                 if s != 'None':
-                    scrape_df.loc[0, key] = s
+                    df.loc[0, key] = s
                 else:
                     pass
         else:
