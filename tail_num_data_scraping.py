@@ -33,7 +33,7 @@ def scrape(t_num):
                    'eng_model': 'content_drptrDeRegAircraft_lbDREngModel_0',
                    }
     ret_key_list = list(ret_id_list.keys())
-
+    cert_cancel_id = 'content_drptrDeRegAircraft_lbDeRegCancelDate_'
     column_list = ['tail_num']
     column_list.extend(key_list)
     scrape_df = pd.DataFrame(columns=column_list)
@@ -72,12 +72,26 @@ def scrape(t_num):
             else:
                 j += 1
                 pass
+        max_cancel_year = 1900
+        # determine the latest cancelled cert
+        if j != -1:
+            max_j = -1
+            for i in range(j + 1):
+                cancel_year = int(
+                    re.search(r'\w+/\w+/(\w+)', soup.find(
+                        'span', id=cert_cancel_id + str(i)
+                    ).string.strip()).group(1))
+                if cancel_year > max_cancel_year:
+                    max_cancel_year = cancel_year
+                    max_j = i
+        else:
+            pass
         if j != -1:
             for key in ret_key_list:
                 s = soup.find('span',
-                              id=ret_id_list[key] + str(j)).string.strip()
+                              id=ret_id_list[key] + str(max_j)).string.strip()
                 if s != 'None':
-                    df.loc[0, key] = s
+                    scrape_df.loc[0, key] = s
                 else:
                     pass
         else:
