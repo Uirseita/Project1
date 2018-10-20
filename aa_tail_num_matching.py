@@ -12,7 +12,7 @@ def update_convert_list(tail_num_convert, old_tail_num, new_tail_num):
     if not match:
         tail_num_convert.loc[tail_num_convert.shape[0],
                              'old_tail_num'] = old_tail_num
-        tail_num_convert.loc[tail_num_convert.shape[0],
+        tail_num_convert.loc[tail_num_convert.shape[0]-1,
                              'new_tail_num'] = new_tail_num
     return tail_num_convert
 
