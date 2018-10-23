@@ -19,4 +19,4 @@ for i in range(new_airports.shape[0]):
     if weather[weather['WBAN'] == new_airports.loc[i, 'WBAN']].shape[0] == 0:
         new_airports = new_airports.drop([i])
 new_airports = new_airports.rename(columns={'FAA':'IATA'})
-new_airports.to_csv('../Weather Data/emshr_lite.csv')
+new_airports.to_csv('../Weather Data/emshr_lite.csv', index=False)
