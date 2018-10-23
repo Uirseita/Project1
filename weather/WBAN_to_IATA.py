@@ -20,4 +20,4 @@ for i in range(new_airports.shape[0]):
         new_airports = new_airports.drop([i])
 new_airports = new_airports.rename(columns={'FAA':'IATA'})
 new_airports = new_airports.sort_values(by='WBAN')
-new_airports.to_csv('../Weather Data/emshr_lite.csv', index=False)
+new_airports.to_csv('../Weather Data/wban_to_iata.csv', index=False)
