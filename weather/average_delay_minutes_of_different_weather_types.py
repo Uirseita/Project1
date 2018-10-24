@@ -46,7 +46,7 @@ weather['DATE'] = pd.to_datetime(weather['DATE'], format='%Y-%m-%d %H:%M')
 res_dict = dict()
 minutes_dict = dict()
 # pattern of weather types
-pattern = re.compile(r'[A-Za-z]{2,}:(\d{2})\s')
+pattern = re.compile(r'(\d{2})')
 # find the weather of the origin airport at closest time moment in weather data
 for i in range(df_flight_time.shape[0]):
     match = []
@@ -57,11 +57,11 @@ for i in range(df_flight_time.shape[0]):
         weather[weather['WBAN'] == df_flight_time.loc[i, 'WBAN']].DATE
     )]
     if isinstance(flight_weather['HOURLYPRSENTWEATHERTYPE'], str):
-        if re.search(r'\|(([A-Za-z]{2,}:(\d{2})\s)*)\|',
+        if re.search(r'\|.*?(([A-Za-z]{2,}:(\d{2})\s)*)\|',
                      flight_weather['HOURLYPRSENTWEATHERTYPE']):
             string = re.search(
-                r'\|(([A-Za-z]{2,}:(\d{2})\s)*)\|',
-                flight_weather['HOURLYPRSENTWEATHERTYPE']).group(1)
+                r'\|.*?(([A-Za-z]{2,}:(\d{2})\s)*)\|',
+                flight_weather['HOURLYPRSENTWEATHERTYPE']).group(0)
             match = pattern.findall(string)
     if len(match) == 0:
         if 0 in list(res_dict.keys()):
