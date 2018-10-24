@@ -13,7 +13,7 @@ weather = pd.read_csv('../Weather Data/data/weather_pre.csv')
 weather['WBAN'] = weather['STATION'].apply(lambda x: int(x[5:]))
 airports = airports.merge(
     wban_faa, left_on='airports', right_on='FAA', how='inner'
-).drop(columns= ['airports', 'state'])
+).drop(columns=['airports', 'state'])
 new_airports = airports.reset_index(drop=True)
 for i in range(new_airports.shape[0]):
     if weather[weather['WBAN'] == new_airports.loc[i, 'WBAN']].shape[0] == 0:
