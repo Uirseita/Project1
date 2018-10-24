@@ -46,7 +46,7 @@ weather['DATE'] = pd.to_datetime(weather['DATE'], format='%Y-%m-%d %H:%M')
 res_dict = dict()
 minutes_dict = dict()
 # pattern of weather types
-pattern = re.compile(r'(\d{2})')
+pattern = re.compile(r'\d{2}')
 # find the weather of the origin airport at closest time moment in weather data
 for i in range(df_flight_time.shape[0]):
     match = []
