@@ -7,4 +7,10 @@ stations_df = weather.groupby('WBAN').first().loc[
               :, ['LATITUDE', 'LONGITUDE']
               ].reset_index()
 stations_df = stations_df.merge(wban_iata, on='WBAN', how='inner')
-stations_df.to_csv('./airport_location.csv', index=False)
+airport_state = pd.read_csv('../Weather Data/airport_download.txt', sep='\t')
+airport_state = airport_state.iloc[:, 1:].rename(columns={'airports': 'IATA'})
+new_stations_df = stations_df.merge(
+    airport_state, on='IATA', how='left'
+).rename(columns={'state': 'STATE'})
+new_stations_df = new_stations_df.sort_values(by='IATA')
+new_stations_df.to_csv('./airport_location.csv', index=False)
