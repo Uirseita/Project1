@@ -69,7 +69,8 @@ def match_weather_data():
 
     #     origin weather index
     grouped = weather.groupby('WBAN')
-    df = df.sort_values(by=['origin_WBAN', 'dep_datetime'])
+    df = df.sort_values(by=['origin_WBAN', 'dep_datetime']).reset_index(
+        drop=True)
     df['origin_weather_index'] = np.nan
     wban = -1
     df['dep_datetime'] = df[['origin_WBAN', 'dep_datetime']].apply()
@@ -84,7 +85,8 @@ def match_weather_data():
             df.loc[i, 'dep_datetime'], weather_series)
 
     #     dest weather index
-    df = df.sort_values(by=['dest_WBAN', 'arr_datetime'])
+    df = df.sort_values(by=['dest_WBAN', 'arr_datetime']).reset_index(
+        drop=True)
     df['dest_weather_index'] = np.nan
     wban = -1
     for i in range(df.shape[0]):
