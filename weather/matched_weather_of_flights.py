@@ -36,7 +36,8 @@ def match_weather_data():
 
     # read wban_iata and weather data
     wban_iata = pd.read_csv('../Weather Data/wban_to_iata.csv')
-    weather = pd.read_csv('../Weather Data/data/weather_pre.csv')
+    weather = pd.read_csv('../Weather Data/data/weather_pre.csv'
+                          , parse_dates=['DATE'])
     weather['WBAN'] = weather['STATION'].apply(lambda x: int(x[5:]))
 
     # convert string into datetime
