@@ -73,29 +73,28 @@ def match_weather_data():
         drop=True)
     df['origin_weather_index'] = np.nan
     wban = -1
-    df['dep_datetime'] = df[['origin_WBAN', 'dep_datetime']].apply()
 
-    for i in range(df.shape[0]):
-        if wban != df.loc[i, 'origin_WBAN']:
-            weather_series = grouped.get_group(df.loc[i, 'origin_WBAN']).DATE
-            wban = df.loc[i, 'origin_WBAN']
+    for index, row in df.iterrows():
+        if wban != row['origin_WBAN']:
+            weather_series = grouped.get_group(row['origin_WBAN']).DATE
+            wban = row['origin_WBAN']
         else:
             pass
-        df.loc[i, 'origin_weather_index'] = find_closest_date(
-            df.loc[i, 'dep_datetime'], weather_series)
+        row['origin_weather_index'] = find_closest_date(row['dep_datetime'],
+                                                        weather_series)
 
-    #     dest weather index
+        #     dest weather index
     df = df.sort_values(by=['dest_WBAN', 'arr_datetime']).reset_index(
         drop=True)
     df['dest_weather_index'] = np.nan
     wban = -1
-    for i in range(df.shape[0]):
-        if wban != df.loc[i, 'dest_WBAN']:
-            weather_series = grouped.get_group(df.loc[i, 'dest_WBAN']).DATE
-            wban = df.loc[i, 'dest_WBAN']
+    for index, row in df.iterrows():
+        if wban != row['dest_WBAN']:
+            weather_series = grouped.get_group(row['dest_WBAN']).DATE
+            wban = row['dest_WBAN']
         else:
             pass
-        df.loc[i, 'dest_weather_index'] = find_closest_date(
-            df.loc[i, 'arr_datetime'], weather_series)
+        row['dest_weather_index'] = find_closest_date(row['arr_datetime'],
+                                                      weather_series)
     df = df.sort_index()
     return df
