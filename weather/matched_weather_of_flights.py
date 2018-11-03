@@ -81,8 +81,8 @@ def match_weather_data():
             wban = row['origin_WBAN']
         else:
             pass
-        row['origin_weather_index'] = find_closest_date(row['dep_datetime'],
-                                                        weather_series)
+        df.at[index, 'origin_weather_index'] = find_closest_date(
+            row['dep_datetime'], weather_series)
 
         #     dest weather index
     df = df.sort_values(by=['dest_WBAN', 'arr_datetime']).reset_index(
@@ -95,7 +95,7 @@ def match_weather_data():
             wban = row['dest_WBAN']
         else:
             pass
-        row['dest_weather_index'] = find_closest_date(row['arr_datetime'],
-                                                      weather_series)
+        df.at[index, 'dest_weather_index'] = find_closest_date(
+            row['arr_datetime'], weather_series)
     df = df.sort_index()
     return df
