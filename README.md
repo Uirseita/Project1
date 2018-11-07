@@ -13,28 +13,37 @@ In all honesty replicating our data is not feasible and should you want our data
 Introduction to some .py scripts:
 
 ./aa_tail_num_matching.py
+
 Match American Airlines nose numbers into tail numbers
 
 ./tail_num_data_scraping.py
+
 Scrape tail numbers data from FAA.gov
 
 ./update_tail_num_result.py
+
 Functions that can update information manually to the tail number data
 
 ./flight_data/airport_location.py
+
 Merge location data to the airport IATA code
 
 ./flight_data/plot_on_us_map.py
+
 Make visualizations on US map, see also ./visualizations/Qingyu_Visualization.ipynb
 
 ./weather/WBAN_to_IATA.py
+
 Match WBAN number to IATA code
 
 ./weather/average_delay_minutes_of_different_weather_types.py
+
 Calculate average delay minutes of different weather types for plots, see also ./visualizations/Qingyu_Visualization.ipynb
 
 ./weather/matched_weather_of_flights.py
+
 Find the matched weather information in weather dataframe
 
 ./weather/matched_weather_of_flights_global_variances.py
+
 Find the matched weather information in weather dataframe, using global variances, slightly faster than matched_weather_of_flights.py
